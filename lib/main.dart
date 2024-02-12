@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'CustomNavigationBar.dart';
 import 'about_page.dart'; // Import the Dart file for the AboutPage
-import 'home_page.dart'; // Import the Dart file for the HomePage
 import 'profile_page.dart'; // Import the Dart file for the ProfilePage
 import 'settings_page.dart'; // Import the Dart file for the ProfilePage
 import 'drawer_widget.dart';
+import 'calculator_page.dart'; // Import the calculator page
+
 
 void main() {
   runApp(const MyApp());
@@ -23,9 +25,9 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Assignment 2 App '),
       routes: {
         '/about': (context) => AboutPage(),
-        '/home': (context) => HomePage(),
         '/profile': (context) => ProfilePage(),
         '/settings': (context) => SettingsPage(),
+        '/calculator': (context) => CalculatorPage(), // Add the calculator route
       },
     );
   }
@@ -43,6 +45,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   void _openDrawer(BuildContext context) {
     Scaffold.of(context).openEndDrawer();
+  }
+
+  void _onDrawerItemPressed(String route) {
+    Navigator.pushNamed(context, route);
   }
 
   @override
@@ -86,71 +92,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                // Add functionality for the second button (About)
-                Navigator.pushNamed(context, '/about');
-              },
-              child: Text('About'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Add functionality for the second button (Home)
-                Navigator.pushNamed(context, '/home');
-              },
-              child: Text('Home'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Add functionality for the second button (Profile)
-                Navigator.pushNamed(context, '/profile');
-              },
-              child: Text('Profile'),
-            ),
-          ],
-        ),
+      bottomNavigationBar: CustomNavigationBar(
+        onAboutPressed: () {
+          Navigator.pushNamed(context, '/about');
+        },
+        onHomePressed: () {
+          // Do nothing or add specific functionality for Home button press
+        },
+
+        onCalculatorPressed: () {
+          Navigator.pushNamed(context, '/calculator');
+        },
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            ListTile(
-              title: Text('Profile'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/profile');
-              },
-            ),
-            ListTile(
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
-            ListTile(
-              title: Text('About'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
-          ],
-        ),
-      ),
+      endDrawer: DrawerWidget(), // Use DrawerWidget here
     );
   }
 }
