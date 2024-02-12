@@ -1,4 +1,4 @@
-# hello_world_mobile_app
+# Navigation Flutter Application
 
 A new Flutter project.
 
