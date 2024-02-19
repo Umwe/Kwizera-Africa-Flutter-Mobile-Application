@@ -5,14 +5,14 @@ import 'profile_page.dart'; // Import the Dart file for the ProfilePage
 import 'settings_page.dart'; // Import the Dart file for the ProfilePage
 import 'drawer_widget.dart';
 import 'calculator_page.dart'; // Import the calculator page
-
+import 'ThemeChanger.dart'; // Import the ThemeChanger class
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeChanger themeChanger = ThemeChanger();
 
   @override
   Widget build(BuildContext context) {
@@ -22,26 +22,27 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Assignment 2 App '),
+      home: MyHomePage(title: 'Mobile Application', themeChanger: themeChanger),
       routes: {
         '/about': (context) => AboutPage(),
         '/profile': (context) => ProfilePage(),
         '/settings': (context) => SettingsPage(),
-        '/calculator': (context) => CalculatorPage(), // Add the calculator route
+        '/calculator': (context) => CalculatorPage(),
       },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
   final String title;
+  final ThemeChanger themeChanger;
+
+  const MyHomePage({Key? key, required this.title, required this.themeChanger})
+      : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 class _MyHomePageState extends State<MyHomePage> {
   void _openDrawer(BuildContext context) {
     Scaffold.of(context).openEndDrawer();
