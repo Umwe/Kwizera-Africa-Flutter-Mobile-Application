@@ -66,14 +66,7 @@ class DrawerWidget extends StatelessWidget {
           ),
 
           // Dropdown for theme selection
-          ListTile(
-            title: Text('Theme'),
-            selected: ModalRoute.of(context)?.settings.name == '/theme',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/theme');
-            },
-          ),
+
 
           // Dropdown menu for theme selection
           ListTile(
